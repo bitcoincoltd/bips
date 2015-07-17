@@ -25,7 +25,9 @@ Whenever a *Dynamic Rate Lookup* is performed the payer's wallet should clearly 
 
 URI should follow the standard BIP0021 format, with an additional "drl=" parameter:
 
- <nowiki>[?|&]drl=*urlencoded_3rdparty_source</nowiki>
+<pre>
+ [?|&]drl=*urlencoded_3rdparty_source
+</pre>
  
 *urlencoded_3rdparty_source should be a urlencoded URL without any https:// as HTTPS is assumed/required and thus ommitted to reduce waste in the QR codes.
 
@@ -34,7 +36,7 @@ URI should follow the standard BIP0021 format, with an additional "drl=" paramet
 The 3rd party should respond with a JSON encoded array of any currency exchange rates they wish to offer.
 
 Format should be as follows:
-<nowiki>
+<pre>
  {
  	"time":*time,
  	"rates":
@@ -44,7 +46,7 @@ Format should be as follows:
  		},...
  		]
  }
-</nowiki>
+</pre>
  
 *time should be ISO 8601 date format of when the rates were generated
 *iso4217 should be a 3 character currency code, such as USD, JPY, GBP etc..
