@@ -36,12 +36,12 @@ The 3rd party should respond with a JSON encoded array of any currency exchange 
 Format should be as follows:
  {
  	"time":*time,
-	"rates":
+ 	"rates":
  		[{
  		"currency" => *iso4217
  		"rate" => *float
  		},...
-		]
+ 		]
  }
  
 *time should be ISO 8601 date format of when the rates were generated
