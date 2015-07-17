@@ -1,0 +1,66 @@
+<pre>
+  BIP: 74
+  Title: Dynamic Rate Lookup (DRL)
+  Author: David Barnes <david.barnes@bitcoin.co.th>
+  Status: Draft
+  Type: Standards Track
+  Created: 2015-07-17
+</pre>
+
+==Abstract==
+This BIP proposes a URI scheme and 3rd party response format for wallets to lookup 3rd party exchange rates from a specific provider.
+
+==Motivation==
+A Bitcoin payee may not have internet access or generally lack ability to calculate a fiat to Bitcoin exchange rate.  
+In many cases the payee and payer may use different default exchange rate sources; and while the payer may be using an international exchange rate (such as bitstamp.com) the payee may wish to be paid in a localized exchange rate, at which they are actually able to exchange.
+With BIP74 the payee would be able to present the payer with a QR code containing a 3rd party URL for the payer to lookup the exchange rate from the 3rd party.
+
+==Specification==
+
+=== General rules for handling (important!) ===
+
+Whenever a *Dynamic Rate Lookup* is performed the payer's wallet should clearly show that a specific source, which is not their default source, has been used for the exchange rate conversion.
+
+=== URI Format ===
+
+URI should follow the standard BIP0021 format, with an additional "drl=" parameter:
+
+ [?|&]drl=*urlencoded_3rdparty_source
+ 
+*urlencoded_3rdparty_source should be a urlencoded URL without any https:// as HTTPS is assumed/required and thus ommitted to reduce waste in the QR codes.
+
+=== 3rd Party Response ===
+
+The 3rd party should respond with a JSON encoded array of any currency exchange rates they wish to offer.
+
+Format should be as follows:
+ {
+ 	"time":*time,
+	"rates":
+ 		[{
+ 		"currency" => *iso4217
+ 		"rate" => *float
+ 		},...
+		]
+ }
+ 
+*time should be ISO 8601 date format of when the rates were generated
+*iso4217 should be a 3 character currency code, such as USD, JPY, GBP etc..
+*float should be a numerical float value representing the value between Bitcoin (BTC) and the *iso4217 currency
+
+The 3rd party may list a single currency, or many currencies; the payer should only have the ability to enter an amount in one of the specified currencies or as Bitcoin directly.
+For example if the 3rd party returns USD and EUR as the currencies, then the payer can select USD, EUR or Bitcoin when entering an amount, they should not be able to to select GBP or any other currencies.
+
+Wallet can choose to provide the payer will less options than the 3rd party has available.
+For example if the 3rd party returns USD, EUR, GBP, JPY as the currencies, then the wallet may choose to display only the payers default currency of USD to the payer.
+
+== Appendix ==
+=== Examples ===
+
+Bitcoin address with Dynamic Rate Lookup:
+ bitcoin:175tWpb8K1S7NmH4Zx6rewF9WQrcZv245W?drl=coinpay.in.th%2Fapi%2Fdrl%2F
+
+== Reference Implementations ==
+=== Dynamic Rate Providers ===
+* Coinpay:  https://coinpay.in.th/api/drl/
+
