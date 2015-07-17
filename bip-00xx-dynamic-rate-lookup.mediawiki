@@ -1,5 +1,5 @@
 <pre>
-  BIP: 74
+  BIP: xx (pending)
   Title: Dynamic Rate Lookup (DRL)
   Author: David Barnes <david.barnes@bitcoin.co.th>
   Status: Draft
@@ -13,7 +13,7 @@ This BIP proposes a URI scheme and 3rd party response format for wallets to look
 ==Motivation==
 A Bitcoin payee may not have internet access or generally lack ability to calculate a fiat to Bitcoin exchange rate.  
 In many cases the payee and payer may use different default exchange rate sources; and while the payer may be using an international exchange rate (such as bitstamp.com) the payee may wish to be paid in a localized exchange rate, at which they are actually able to exchange.
-With BIP74 the payee would be able to present the payer with a QR code containing a 3rd party URL for the payer to lookup the exchange rate from the 3rd party.
+With this BIP the payee would be able to present the payer with a QR code containing a 3rd party URL for the payer to lookup the exchange rate from the 3rd party.
 
 ==Specification==
 
